@@ -32,7 +32,7 @@ jobs:
           - { python-version: "3.12", os: ubuntu-latest }
           - { python-version: "3.13", os: ubuntu-latest }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v5
         with:
@@ -65,7 +65,7 @@ jobs:
     name: Release readiness
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # The gate inspects git-tracked files, so it needs real history rather
           # than a shallow checkout.
