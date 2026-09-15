@@ -1,0 +1,87 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: "Question Proposal / 题目提案"
+description: "Propose adding or changing an assessment question / 提议新增或修改题目"
+title: "[Question] "
+labels: ["question-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Question changes affect the scoring basis for **every** user, so they are
+        discussed here before a PR is opened. See
+        [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md#adding--modifying-questions-proposal-process).
+
+        题目改动会影响**所有**使用者的打分基准，因此先在 Issue 里讨论定稿，再提 PR。
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: "Kind / 类型"
+      options:
+        - "Add a new question / 新增题目"
+        - "Reword an existing question or option / 修改题干或选项措辞"
+        - "Move a question to another dimension / 调整题目所属维度"
+        - "Remove a question / 删除题目"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: dimension
+    attributes:
+      label: "Dimension / 维度"
+      options:
+        - "dim1 — Cost & Business Value / 成本与业务价值"
+        - "dim2 — Data Foundation & Quality / 数据基础与质量"
+        - "dim3 — Platform Architecture & Operations / 平台架构与运维"
+        - "dim4 — Organization & Talent / 组织与人才"
+        - "dim5 — Governance & Trust / 治理与信任"
+        - "dim6 — Security & Compliance / 安全与合规"
+    validations:
+      required: true
+
+  - type: textarea
+    id: stem
+    attributes:
+      label: "Proposed stem / 拟定题干"
+      placeholder: "Do the AI-facing data pipelines have a documented freshness SLO?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: "The four options + N/A / 四个选项与 N/A"
+      description: >-
+        The semantic gradient is fixed: A = not started, B = initial practice,
+        C = basically compliant, D = mature and leading. A→B→C is a quantitative
+        progression; C→D must be a qualitative leap (systematic + automated +
+        continuously verifiable). / 语义梯度固定，C→D 必须是质变。
+      value: |
+        - A.
+        - B.
+        - C.
+        - D.
+        - N/A.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: "What capability does this measure, and why its own question? / measure 什么能力，为何值得单独成题"
+      description: >-
+        Explain why an existing question does not already cover it. Concrete
+        scenarios and data are far more persuasive than assertions.
+    validations:
+      required: true
+
+  - type: input
+    id: version-impact
+    attributes:
+      label: "Expected questionnaire version impact / 预期问卷版本影响"
+      description: "MAJOR / MINOR / PATCH — see CONTRIBUTING.md"
+      placeholder: "MINOR (adds a question, existing question values unchanged)"
+    validations:
+      required: true

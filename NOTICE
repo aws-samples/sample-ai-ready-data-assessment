@@ -1,1 +1,23 @@
+AI-Ready Data · Enterprise Self-Assessment Toolkit
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+This product includes software developed by
+Amazon Web Services.
+
+------------------------------------------------------------------------
+Licensing summary
+------------------------------------------------------------------------
+
+This repository is dual-licensed, by content type:
+
+  * CODE — everything under scoring/ and scripts/, and the test suite
+    under test/ — is licensed under the Apache License, Version 2.0.
+    See the LICENSE file.
+
+  * ASSESSMENT CONTENT — the question bank under modules/ and zh/modules/,
+    and the Markdown documentation in this repository — is licensed under
+    the Creative Commons Attribution 4.0 International license (CC BY 4.0).
+    See the LICENSE-CONTENT file.
+
+This project has no third-party runtime dependencies; the scoring tool uses
+only the Python standard library.

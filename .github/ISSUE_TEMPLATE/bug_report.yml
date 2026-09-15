@@ -1,0 +1,61 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: "Bug Report / 缺陷报告"
+description: "Something in the tooling behaves incorrectly / 工具行为不正确"
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not report security issues here.** See
+        [SECURITY.md](../blob/main/SECURITY.md) for the private reporting path.
+
+        **请勿在此上报安全问题**，参见 [SECURITY.md](../blob/main/SECURITY.zh.md)。
+
+        Please do not paste a real answers file — it describes your
+        organization's weak spots. A reduced, made-up example is what we need.
+        / 请勿粘贴真实作答文件，用最小化的虚构样例即可。
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: "What happened / 实际现象"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "What you expected / 期望现象"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: "Steps to reproduce / 复现步骤"
+      description: "The command you ran, and a minimal made-up answers file if relevant."
+      render: shell
+      placeholder: |
+        python3 scoring/score.py my-answers.csv --strict
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: "Python version / Python 版本"
+      placeholder: "3.11.9 (macOS arm64)"
+    validations:
+      required: true
+
+  - type: input
+    id: questionnaire-version
+    attributes:
+      label: "Questionnaire version / 问卷版本"
+      description: "The output of `python3 scoring/score.py --version`."
+      placeholder: "1.0.0"
+    validations:
+      required: true

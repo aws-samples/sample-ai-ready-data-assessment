@@ -1,0 +1,87 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # README and CONTRIBUTING advertise "Python 3.9 or newer"; this matrix is
+        # what makes that claim true rather than aspirational. The runner image
+        # is pinned per version rather than tracking ubuntu-latest, because
+        # setup-python does not publish a 3.9 build for every image generation.
+        include:
+          - { python-version: "3.9", os: ubuntu-22.04 }
+          - { python-version: "3.10", os: ubuntu-latest }
+          - { python-version: "3.11", os: ubuntu-latest }
+          - { python-version: "3.12", os: ubuntu-latest }
+          - { python-version: "3.13", os: ubuntu-latest }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Questionnaire integrity + cross-locale parity
+        run: python3 scripts/check_modules.py
+
+      - name: Unit tests
+        run: python3 test/run_tests.py --quiet
+
+      - name: Score the bundled examples
+        run: |
+          python3 scoring/score.py scoring/answers.example.csv --strict
+          python3 scoring/score.py scoring/answers.example.json --strict
+          python3 scoring/score.py scoring/answers.example.csv --lang zh
+          python3 scoring/score.py scoring/answers.example.csv --lang both
+          python3 scoring/score.py scoring/answers.example.csv --json > /dev/null
+          python3 scoring/score.py --version
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-py${{ matrix.python-version }}
+          path: test/results/
+          retention-days: 7
+
+  release-ready:
+    name: Release readiness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The gate inspects git-tracked files, so it needs real history rather
+          # than a shallow checkout.
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Advisory on ordinary pushes and PRs -- an in-progress branch may legitimately
+      # not be publishable yet -- but blocking on a tag, which is a release.
+      - name: Release readiness (advisory)
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        continue-on-error: true
+        run: python3 scripts/check_release_ready.py
+
+      - name: Release readiness (enforced on tags)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: python3 scripts/check_release_ready.py

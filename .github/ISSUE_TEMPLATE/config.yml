@@ -1,0 +1,13 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+blank_issues_enabled: true
+contact_links:
+  - name: "Security vulnerability / 安全漏洞"
+    url: https://aws.amazon.com/security/vulnerability-reporting/
+    about: >-
+      Report privately via AWS/Amazon Security — never as a public issue.
+      请通过 AWS 安全渠道私下上报，不要开公开 issue。
+  - name: "Code of Conduct concern / 行为准则问题"
+    url: https://aws.github.io/code-of-conduct-faq
+    about: "Contact opensource-codeofconduct@amazon.com."

@@ -1,0 +1,16 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# This project has no third-party runtime dependencies -- the scoring tool uses
+# only the Python standard library -- so the only thing to keep current is the
+# set of GitHub Actions used by CI.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore(deps)"

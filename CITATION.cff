@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this assessment toolkit, please cite it as below."
+title: "AI-Ready Data · Enterprise Self-Assessment Toolkit (企业自检工具)"
+abstract: >-
+  An open-source maturity self-assessment for enterprise "AI-Ready" data
+  capability: 45 questions across six dimensions (cost & business value,
+  data foundation & quality, platform architecture & operations,
+  organization & talent, governance & trust, security & compliance),
+  with an N/A-aware scoring script producing dimension get-rates and
+  L1–L4 maturity levels.
+type: software
+authors:
+  - name: "Amazon Web Services"
+version: 1.0.0
+date-released: 2026-08-30
+license: [Apache-2.0, CC-BY-4.0]
+keywords:
+  - AI-Ready Data
+  - maturity model
+  - data governance
+  - self-assessment
+  - MLOps
+repository-code: "https://github.com/aws-samples/sample-ai-ready-data-assessment"
+url: "https://github.com/aws-samples/sample-ai-ready-data-assessment"
